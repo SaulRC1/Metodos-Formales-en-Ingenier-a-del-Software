@@ -1,0 +1,10 @@
+Hotel
+Habitaciones
+Suites
+Llave Electronica
+Cliente
+Tarjeta de Pago
+Reserva
+Persona
+ - Cliente
+ - Empleado
