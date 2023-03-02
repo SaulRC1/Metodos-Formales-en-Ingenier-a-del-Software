@@ -1,0 +1,39 @@
+model Complejo_Hotelero
+
+class Fecha
+attributes
+    dia : Integer
+    mes : Integer
+    year : Integer
+operations
+end
+
+enum TipoHabitacion {
+    Suite,
+    Normal
+}
+
+enum Departamento {
+    Mantenimiento,
+    Atencion_Al_Cliente,
+    Limpieza
+}
+
+class Habitacion
+attributes
+    idHabitacion : Integer
+    numHabitacion : Integer
+    metrosCuadrados : Integer
+    numeroDeCamas : Integer
+    tipoDeHabitacion : TipoHabitacion
+    precio : Real
+end
+
+class LlaveElectronica
+attributes
+    idLlave : Integer
+    identificador : Integer
+    habitacion : Habitacion
+end
+
+class Categoria
