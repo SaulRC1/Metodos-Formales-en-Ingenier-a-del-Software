@@ -1,0 +1,53 @@
+model AAD_MODEL
+
+class Empleado
+attributes
+    idEmpleado : Integer
+    dni : String
+    codigoDeEmpleado : Integer
+    nombre : String
+    apellidos : String
+end
+
+class Cliente
+attributes
+    idCliente : Integer
+    nombre : String
+    apellidos : String
+    numberoDeTarjeta : String
+end
+
+abstract class Terminal
+attributes
+    idDeTerminal : Integer
+    codigoDeTerminal : Integer
+    cantidadDeDineroAlmacenado : Real
+operations
+    ejecutarServicioDeTerminal()
+end
+
+class TerminalDeVenta < Terminal
+attributes
+    empleadosPermitidos : Set(Empleado)
+end
+
+class TerminalDeCobroAutomatico < Terminal
+end
+
+abstract class Operacion
+end
+
+class VentaMedianteEmpleado < Operacion
+attributes
+    autorDeLaVenta : Empleado
+    cliente : Cliente
+    montoCobrado : Real
+    cambioDevuelto : Real
+end
+
+class VentaPorCobroAutomatico < Operacion
+attributes
+    cliente : Cliente
+    montoCobrado : Real
+    cambioDevuelto : Real
+end
