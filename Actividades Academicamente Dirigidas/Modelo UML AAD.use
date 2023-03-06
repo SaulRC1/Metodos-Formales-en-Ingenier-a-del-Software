@@ -14,7 +14,7 @@ attributes
     idCliente : Integer
     nombre : String
     apellidos : String
-    numberoDeTarjeta : String
+    numeroDeTarjeta : String
 end
 
 abstract class Terminal
@@ -29,9 +29,13 @@ end
 class TerminalDeVenta < Terminal
 attributes
     empleadosPermitidos : Set(Empleado)
+operations
+    ejecutarServicioDeTerminal()
 end
 
 class TerminalDeCobroAutomatico < Terminal
+operations
+    ejecutarServicioDeTerminal()
 end
 
 abstract class Operacion
@@ -51,3 +55,26 @@ attributes
     montoCobrado : Real
     cambioDevuelto : Real
 end
+
+
+-- Restricciones OCL
+
+constraints
+
+context Terminal 
+    inv IdTerminalMayorACero: self.idDeTerminal > 0
+
+--context TerminalDeVenta::ejecutarServicioDeTerminal()
+    --pre: self.empleadosPermitidos->exists()
+
+context Empleado 
+    inv Dni9Caracteres: self.dni.size = 9
+
+context VentaMedianteEmpleado
+    inv CobradoMayorADevuelto: (self.montoCobrado - self.cambioDevuelto) > 0
+
+context VentaPorCobroAutomatico
+    inv CobradoMayorADevuelto: (self.montoCobrado - self.cambioDevuelto) > 0
+
+context Cliente
+    inv NumeroDeTarjeta16Digitos: self.numeroDeTarjeta.size = 16
