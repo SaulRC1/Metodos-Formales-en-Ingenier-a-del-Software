@@ -88,8 +88,8 @@ constraints
 context Terminal 
     inv IdTerminalMayorACero: self.idDeTerminal > 0
 
---context TerminalDeVenta::ejecutarServicioDeTerminal()
-    --pre: self.empleadosPermitidos->exists()
+context TerminalDeVenta::ejecutarServicioDeTerminal()
+   pre: self.empleado_utiliza_terminal_de_venta -> exists(E: Empleado | self.empleadosPermitidos -> includes(E))
 
 context Empleado 
     inv Dni9Caracteres: self.dni.size = 9
