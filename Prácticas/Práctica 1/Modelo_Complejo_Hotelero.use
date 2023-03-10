@@ -1,11 +1,32 @@
 model Complejo_Hotelero
 
+class Proveedor
+attributes
+    cif: Integer
+    nombre: String
+end
+
+class Hotel
+attributes
+    idHotel: Integer
+    codigoDeHotel: Integer
+    nombre: String
+    direccion: String
+    telefono: Integer
+    gerente: Empleado
+end
+
+
+
 class Fecha
 attributes
     dia : Integer
     mes : Integer
     year : Integer
 operations
+    anteriorA
+    posteriorA
+    igualA
 end
 
 enum TipoHabitacion {
@@ -19,10 +40,22 @@ enum Departamento {
     Limpieza
 }
 
+enum TipoEmpleado {
+    Gerente,
+    Normal
+}
+
+class Categoria
+attributes
+    idCategoria: Integer
+    nombre: String
+    multiplicador: Integer
+end
+
 class Habitacion
 attributes
     idHabitacion : Integer
-    numHabitacion : Integer
+    numHabitacion : String
     metrosCuadrados : Integer
     numeroDeCamas : Integer
     tipoDeHabitacion : TipoHabitacion
@@ -36,4 +69,3 @@ attributes
     habitacion : Habitacion
 end
 
-class Categoria
