@@ -1,21 +1,20 @@
-import { Cliente, Empleado, TerminalDeCobroAutomatico,
-TerminalDeVenta, VentaMedianteEmpleado, VentaPorCobroAutomatico } from "./Modelo.js";
-
+import { empleadoAntonio, empleadoFederico, clienteJuan, terminalDeVenta, venta1, venta2 } from "./demo_objects.js";
+import { logOCLEvaluationResult } from "./util.js";
 import { OclEngine } from "@stekoe/ocl.js"
 
 //Definimos todas las restricciones OCL
 
-const idTerminalMayorACero = "context Terminal inv: self.idDeTerminal > 0";
+const idTerminalMayorACero = "context Terminal inv idTerminalMayorACero: self.idDeTerminal > 0";
 
-const dni9Caracteres = "context Empleado inv: self.dni->size() = 9";
+const dni9Caracteres = "context Empleado inv dni9Caracteres: self.dni->size() = 9";
 
 const cobradoMayorADevueltoVentaMedianteEmpleado = 
-"context VentaMedianteEmpleado inv: (self.montoCobrado - self.cambioDevuelto) > 0";
+"context VentaMedianteEmpleado inv cobradoMayorADevueltoVentaMedianteEmpleado: (self.montoCobrado - self.cambioDevuelto) > 0";
 
 const cobradoMayorADevueltoVentaCobroAutomatico =
-"context VentaPorCobroAutomatico inv: (self.montoCobrado - self.cambioDevuelto) > 0";
+"context VentaPorCobroAutomatico inv cobradoMayorADevueltoVentaCobroAutomatico: (self.montoCobrado - self.cambioDevuelto) > 0";
 
-const numeroDeTarjeta16Digitos = "context Cliente inv: self.numeroDeTarjeta->size() = 16";
+const numeroDeTarjeta16Digitos = "context Cliente inv numeroDeTarjeta16Digitos: self.numeroDeTarjeta->size() = 16";
 
 let restriccionesOCL = [
     idTerminalMayorACero,
@@ -29,26 +28,31 @@ let restriccionesOCL = [
 const oclEngine = OclEngine.create();
 
 //Añadimos restricciones OCL previamente definidas
-//oclEngine.addOclExpressions(restriccionesOCL);
-//oclEngine.addOclExpression('context Empleado inv: self.dni->notEmpty()', ["dni9Caracteres"]);
-oclEngine.addOclExpression(`context TerminalDeVenta inv: self.idDeTerminal > 0`)
-let empleadoJuan = new Empleado();
+oclEngine.addOclExpressions(restriccionesOCL);
 
-empleadoJuan.nombre = "Juan";
-empleadoJuan.apellidos = "Rodriguez Hernandez";
-empleadoJuan.idEmpleado = 1;
-empleadoJuan.codigoDeEmpleado = 1;
-empleadoJuan.fechaDeNacimiento = "12/09/1998";
-//empleadoJuan.dni = "12345678ZA";
-empleadoJuan.dni = [];
+//Evaluamos las restricciones OCL
+let resultadoAntonio = oclEngine.evaluate(empleadoAntonio);
 
-//let result = oclEngine.evaluate(empleadoJuan, ["dni9Caracteres"]);
+logOCLEvaluationResult("empleadoAntonio", resultadoAntonio);
 
-let terminalDeVenta = new TerminalDeVenta();
+let resultadoFederico = oclEngine.evaluate(empleadoFederico);
 
-terminalDeVenta.idDeTerminal = -1;
+logOCLEvaluationResult("empleadoFederico", resultadoFederico);
 
-let result = oclEngine.evaluate(terminalDeVenta);
+let resultadoJuan = oclEngine.evaluate(clienteJuan);
 
-console.log(result);
+logOCLEvaluationResult("clienteJuan", resultadoJuan);
+
+let resultadoTerminalDeVenta = oclEngine.evaluate(terminalDeVenta);
+
+logOCLEvaluationResult("terminalDeVenta", resultadoTerminalDeVenta);
+
+let resultadoVenta1 = oclEngine.evaluate(venta1);
+
+logOCLEvaluationResult("venta1", resultadoVenta1);
+
+let resultadoVenta2 = oclEngine.evaluate(venta2);
+
+logOCLEvaluationResult("venta2", resultadoVenta2);
+
 

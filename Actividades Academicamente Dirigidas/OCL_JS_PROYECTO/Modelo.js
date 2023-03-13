@@ -1,4 +1,5 @@
 export class Empleado {
+    typeName = "Empleado";
     idEmpleado;
     dni;
     codigoDeEmpleado;
@@ -8,6 +9,7 @@ export class Empleado {
 }
 
 export class Cliente {
+    typeName = "Cliente";
     idCliente;
     nombre;
     apellidos;
@@ -15,6 +17,7 @@ export class Cliente {
 }
 
 class Terminal {
+    typeName = "Terminal";
     idDeTerminal;
     codigoDeTerminal;
     cantidadDeDineroAlmacenado;
@@ -26,7 +29,6 @@ class Terminal {
 
 export class TerminalDeVenta extends Terminal {
     empleadosPermitidos;
-    typeName = "TerminalDeVenta";
 }
 
 export class TerminalDeCobroAutomatico extends Terminal {}
@@ -34,6 +36,7 @@ export class TerminalDeCobroAutomatico extends Terminal {}
 class Operacion {}
 
 export class VentaMedianteEmpleado extends Operacion {
+    typeName = "VentaMedianteEmpleado";
     autorDeLaVenta;
     cliente;
     montoCobrado;
@@ -41,6 +44,7 @@ export class VentaMedianteEmpleado extends Operacion {
 }
 
 export class VentaPorCobroAutomatico extends Operacion {
+    typeName = "VentaPorCobroAutomatico";
     cliente;
     montoCobrado;
     cambioDevuelto;
